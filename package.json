@@ -1,0 +1,28 @@
+{
+  "name": "swiggy-api-clone",
+  "version": "1.0.0",
+  "description": "this is project for swiggy clone",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "Keshav",
+  "license": "ISC",
+  "devDependencies": {
+    "@iconify/react": "^4.1.1",
+    "parcel": "^2.10.3",
+    "process": "^0.11.10",
+    "tailwindcss": "^3.4.0"
+  },
+  "dependencies": {
+    "http-proxy-middleware": "^2.0.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.1"
+  },
+  "browserlist": [
+    "last 2  version"
+  ]
+}
