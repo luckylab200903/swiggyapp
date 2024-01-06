@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react";
 import Restraurantcard from "./Restraurantcard";
 import { IMAGE_URL } from "../utils/images_url";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
+
 const Body = () => {
   const [listofRestrurants, setlistofRestrurants] = useState([]);
   const [filteredrestrurant, setfilteredrestrurant] = useState([]);
   const [datasearch, setdatasearch] = useState("");
+
   useEffect(() => {
     fetchData();
   }, []);
+
   const fetchData = async () => {
     try {
       const response = await fetch(
@@ -20,20 +24,23 @@ const Body = () => {
       const json = await response.json();
       console.log(json);
       const restrurants =
-        json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+        json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants;
+      console.log("Restaurants Data:", restrurants);
       setlistofRestrurants(restrurants);
-      setfilteredrestrurant(restrurants)
+      setfilteredrestrurant(restrurants);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
+  useEffect(() => {
+    console.log("listofRestrurants:", listofRestrurants);
+    console.log("filteredrestrurant:", filteredrestrurant);
+  }, [listofRestrurants, filteredrestrurant]);
   const handleClick = () => {
     const filteredRestaurants = listofRestrurants.filter(
       (item) => item?.info?.avgRating > 4.2
     );
-    // console.log(listofRestrurants);
-    // console.log(filteredRestaurants);
     setfilteredrestrurant(filteredRestaurants);
   };
 
@@ -41,16 +48,20 @@ const Body = () => {
     setdatasearch(e.target.value);
     console.log(datasearch);
   };
+
   const handlesearchclick = () => {
-    const searchRegex = new RegExp(datasearch, "i"); // 'i' flag for case-insensitive search
+    const searchRegex = new RegExp(datasearch, "i");
 
     const filteredRestaurants = listofRestrurants.filter((restaurant) => {
       return searchRegex.test(restaurant?.info?.name);
     });
-    console.log(filteredRestaurants);
+
     setfilteredrestrurant(filteredRestaurants);
   };
-  return (
+
+  return filteredrestrurant.length === 0 ? (
+    <Shimmer />
+  ) : (
     <div className="body">
       <div className="filter-button">
         <input
@@ -63,12 +74,10 @@ const Body = () => {
         </button>
         <button onClick={handleClick}>Top Rated restaurants</button>
       </div>
-
       <div className="res-container">
-        {filteredrestrurant.length !== 0 ? (
-          filteredrestrurant.map((restra) => (
+        {filteredrestrurant.map((restra) => (
+          <Link to={"/restaurants/" + restra.info.id} key={restra.info.id}>
             <Restraurantcard
-              key={restra.info.id}
               name={restra.info.name}
               cuisine={restra.info.cuisines.join(" ")}
               avgRating={restra.info.avgRating}
@@ -76,10 +85,8 @@ const Body = () => {
               DeliveryTime={restra.info.sla.deliveryTime}
               imgUrl={`${IMAGE_URL}${restra.info.cloudinaryImageId}`}
             />
-          ))
-        ) : (
-          <Shimmer />
-        )}
+          </Link>
+        ))}
       </div>
     </div>
   );

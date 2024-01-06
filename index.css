@@ -7,7 +7,7 @@
   margin-right: 0;
 }
 
-ul {
+.navbar{
   display: flex;
 }
 .cardlogo {

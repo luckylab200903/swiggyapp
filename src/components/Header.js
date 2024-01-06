@@ -16,7 +16,7 @@ const Header = () => {
         <SwiggyIcon/>
       </div>
       <div className="nav-item">
-        <ul>
+        <ul className="navbar">
           <Link to={"/"}><li>Home</li></Link>
           <Link to={"/about"}><li>About Us</li></Link>
           <Link to={"/contact"}><li>Contact us</li></Link>
