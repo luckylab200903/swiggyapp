@@ -1,26 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Shimmer from "./Shimmer";
-import { MENU_URL,REMAINING_URL } from "../utils/images_url";
+import { MENU_URL, REMAINING_URL } from "../utils/images_url";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
+import RestaurantCategory from "./RestaurantCategory";
 const RestaurantMenu = () => {
-  const [resinfo, setresinfo] = useState(null);
   const { resId } = useParams();
-  console.log(resId);
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    try {
-      const data = await fetch(MENU_URL+resId);
-
-      const json = await data.json();
-      setresinfo(json.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
+  const [showIndex, setShowIndex] = useState(0);
+  const resinfo = useRestaurantMenu(resId);
   if (!resinfo) {
     return <Shimmer />;
   }
@@ -40,24 +27,35 @@ const RestaurantMenu = () => {
   const { cuisines, name, costForTwo, city } = cards[0].card.card.info;
   const { itemCards } =
     resinfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
-  console.log(itemCards);
-
+  console.log(resinfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards);
+  const categories =
+    resinfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+      (c) =>
+        c?.card?.card?.["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    );
+  console.log(categories);
 
   return (
-    <div>
-      <h1>{name}:</h1>
-      <h2>{cuisines.join(",")}</h2>
-      <h2>{costForTwo}</h2>
-      <h2>{city}</h2>
+    <div className="items-center text-center">
+      <div className="gap-2 pt-4">
+        <h1 className="font-bold text-3xl">{name}</h1>
+      </div>
+      <div className="flex flex-row justify-center items-center gap-4 text-center font-bold">
+        <h2>{cuisines.join(",")}</h2>
+        <h2>{costForTwo / 100} for two</h2>
+        <h2>{city}</h2>
+      </div>
       <div>
-        <h2>Recommended</h2>
-        <ul>
-          {itemCards && itemCards.map((item) => (
-            <li key={item.card.id}>
-              {item.card.info.name}:₹{item.card.info.price / 100}
-            </li>
-          ))}
-        </ul>
+        {categories.map((category,index) => {
+          return (
+            <RestaurantCategory
+              data={category?.card?.card}
+              show={index===showIndex ? true : false}
+              setShowIndex={()=>setShowIndex(index)}
+            />
+          );
+        })}
       </div>
     </div>
   );

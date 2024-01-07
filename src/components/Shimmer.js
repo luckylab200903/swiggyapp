@@ -1,26 +1,15 @@
-import React from 'react'
+// Shimmer.jsx
+
+import React from "react";
 
 const Shimmer = () => {
   return (
-    <div className='shimmer'>
-      <div className='shimmer-card'></div>
-      <div className='shimmer-card'></div>
-      <div className='shimmer-card'></div>
-      <div className='shimmer-card'></div>
-      <div className='shimmer-card'></div>
-      <div className='shimmer-card'></div>
-      <div className='shimmer-card'></div>
-      <div className='shimmer-card'></div>
-      <div className='shimmer-card'></div>
-      <div className='shimmer-card'></div>
-      <div className='shimmer-card'></div>
-      <div className='shimmer-card'></div>
-      <div className='shimmer-card'></div>
-      <div className='shimmer-card'></div>
-      <div className='shimmer-card'></div>
-      <div className='shimmer-card'></div>
+    <div className="flex flex-wrap justify-center items-center p-8">
+      {[...Array(15)].map((_, index) => (
+        <div key={index} className="shimmer-box m-4"></div>
+      ))}
     </div>
-  )
-}
+  );
+};
 
-export default Shimmer
+export default Shimmer;

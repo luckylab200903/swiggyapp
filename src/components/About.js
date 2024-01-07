@@ -6,12 +6,9 @@ class About extends React.Component {
   constructor(props) {
     super(props);
     console.log("parent constructor called");
+    
   }
-  async componentDidMount() {
-    const fetchData=await fetch("https://api.github.com/users/luckylab200903")
-    const json=await fetchData.json()
-    console.log(json);
-  }
+
   render() {
     console.log("parent render called");
     return (

@@ -1,65 +1,31 @@
-.header {
-  display: flex;
-  justify-content: space-between;
-  background-color: pink;
-  margin-top: 0;
-  margin-left: 0;
-  margin-right: 0;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.navbar{
-  display: flex;
-}
-.cardlogo {
-  width: 100%;
-}
-.search {
-  padding: 10px;
-}
-li {
-  padding: 10px;
-  list-style-type: none;
-  font-size: 20px;
-  font-weight: bold;
-}
-.res-card {
-  padding: 5px;
-  width: 200px;
-  margin: 5px;
-}
-/* .res-container{
-    display: grid;
-    grid-template-columns :200px 2fr ;
-} */
-/* .res-container {
-    display: grid;
-    grid-template-columns: 200px repeat(5, 1fr);
-/* } */
-.res-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+@font-face {
+    font-family: 'Roboto';
+    src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap')
+  }
 
-.res-card:hover {
-  border: 1px solid black;
-  cursor: pointer;
-}
-.shimmer {
-  display: flex;
-  flex-wrap: wrap;
-}
-.shimmer-card {
-  width: 200px;
-  height: 400px;
-  background-color: #f0f0f0;
-  margin: 20px;
-}
+  /* tailwind.css or your custom styles */
 
-.login {
-  padding: 0px 20px;
-  margin: 10px;
-}
-.search-button{
-  margin: 10px;
-}
+@keyframes shimmer {
+    0% {
+      background-position: -200%;
+    }
+    100% {
+      background-position: 200%;
+    }
+  }
+  
+  /* Custom class for shimmer effect */
+  .shimmer-box {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    width: 200px;  /* Adjust the width as needed */
+    height: 250px; /* Adjust the height as needed */
+  }
+  

@@ -3,7 +3,7 @@ import Restraurantcard from "./Restraurantcard";
 import { IMAGE_URL } from "../utils/images_url";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
-
+import { Icon } from "@iconify/react";
 const Body = () => {
   const [listofRestrurants, setlistofRestrurants] = useState([]);
   const [filteredrestrurant, setfilteredrestrurant] = useState([]);
@@ -62,19 +62,39 @@ const Body = () => {
   return filteredrestrurant.length === 0 ? (
     <Shimmer />
   ) : (
-    <div className="body">
-      <div className="filter-button">
-        <input
-          placeholder="Search restaurants here"
-          className="search-input"
-          onChange={handleonchange}
-        />
-        <button className="search-button" onClick={handlesearchclick}>
-          Search
-        </button>
-        <button onClick={handleClick}>Top Rated restaurants</button>
+    <div className="">
+      <div className="flex justify-center items-center">
+        <div className="p-4 text-black flex justify-between">
+          <div className="relative flex items-center">
+            <Icon
+              icon="iconamoon:search-bold"
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-500"
+            />
+            <input
+              type="text"
+              placeholder="Search restaurants here..."
+              className="p-4 pl-10 border hover:border hover:border-black rounded-full focus:outline-none"
+              onChange={handleonchange}
+            />
+          </div>
+          <button
+            className="bg-gradient-to-b from-green-400 via-white to-black p-4 rounded-full font-bold"
+            onClick={handlesearchclick}
+          >
+            Search
+          </button>
+        </div>
+        <div>
+          <button
+            onClick={handleClick}
+            className="bg-gradient-to-r from-yellow-500 via-purple-500 to-red-500 items-center p-4 rounded-full m-4 font-bold"
+          >
+            Top Rated restaurants
+          </button>
+        </div>
       </div>
-      <div className="res-container">
+
+      <div className="flex flex-wrap justify-center items-center mx-auto p-8 py-0  ml-11 mr-11 bg-[#1D267D]">
         {filteredrestrurant.map((restra) => (
           <Link to={"/restaurants/" + restra.info.id} key={restra.info.id}>
             <Restraurantcard

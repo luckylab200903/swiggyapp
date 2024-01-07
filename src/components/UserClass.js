@@ -1,24 +1,38 @@
 import React from "react";
 class UserClass extends React.Component {
   constructor(props) {
-   super(props)
-   this.state={
-    userInfo:{
-      name:"keshav",
-      
-    }
-   }
+    super(props);
+    this.state={
+      userInfo:{
+        name:"keshav",
+        location:"haridwar",
+        avatar_url:"default"
+      }
+     }
   }
-  componentDidMount() {
-    
+  async componentDidMount() {
+    const fetchData = await fetch(
+      "https://api.github.com/users/luckylab200903"
+    );
+    const json = await fetchData.json();
+    console.log(json);
+    this.setState({
+      userInfo: json,
+    });
+  }
+  componentDidUpdate(){
+    console.log("component did update");
   }
   render() {
-    
+    const {name,login,location,url,bio,avatar_url}=this.state.userInfo
     return (
       <div>
-        <h1>Name:{this.props.name}</h1>
-        <h2>Contact user:{this.props.contact}</h2>
-        <h2>email:{this.props.email}</h2>
+      <img src={avatar_url} height={"100px"} width={"100px"}/>
+        <h1>Name:{name}</h1>
+        <h2>location:{location}</h2>
+        <h2>Username:{login}</h2>
+        <h2>Github url:{url}</h2>
+        <h2>Bio:{bio}</h2>
       </div>
     );
   }
