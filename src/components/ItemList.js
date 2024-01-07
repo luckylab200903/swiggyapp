@@ -1,7 +1,13 @@
 import React from "react";
 import { IMAGE_URL } from "../utils/images_url";
+import { useDispatch } from "react-redux";
+import { additem } from "../utils/cartSLice";
 
 const ItemList = ({ items }) => {
+  const dispatch=useDispatch()
+  const handleadditem=(item)=>{
+    dispatch(additem(item))
+  }
   console.log(items);
   return (
     <div>
@@ -33,7 +39,7 @@ const ItemList = ({ items }) => {
                 className="w-24 h-auto mb-2 object-cover" // Increase width for better visibility, use object-cover to maintain aspect ratio
                 alt={item.card.info.name}
               />
-              <button className="p-2 bg-white shadow-lg absolute bottom-0 rounded-lg">
+              <button onClick={()=>handleadditem(item)} className="p-2 bg-white shadow-lg absolute bottom-0 rounded-lg">
                 Add +
               </button>
             </div>

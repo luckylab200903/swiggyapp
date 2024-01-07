@@ -26,7 +26,7 @@ class UserClass extends React.Component {
   render() {
     const {name,login,location,url,bio,avatar_url}=this.state.userInfo
     return (
-      <div>
+      <div className="text-center font-bold justify-center flex flex-col items-center p-8">
       <img src={avatar_url} height={"100px"} width={"100px"}/>
         <h1>Name:{name}</h1>
         <h2>location:{location}</h2>

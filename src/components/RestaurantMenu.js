@@ -37,7 +37,7 @@ const RestaurantMenu = () => {
   console.log(categories);
 
   return (
-    <div className="items-center text-center">
+    <div className="items-center text-center bg-[#D4ADFC]">
       <div className="gap-2 pt-4">
         <h1 className="font-bold text-3xl">{name}</h1>
       </div>

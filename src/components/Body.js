@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Restraurantcard from "./Restraurantcard";
 import { IMAGE_URL } from "../utils/images_url";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import UserContext from "./UserContext";
+
 const Body = () => {
   const [listofRestrurants, setlistofRestrurants] = useState([]);
   const [filteredrestrurant, setfilteredrestrurant] = useState([]);
   const [datasearch, setdatasearch] = useState("");
+  const { setusername } = useContext(UserContext);
 
   useEffect(() => {
     fetchData();
@@ -16,7 +19,7 @@ const Body = () => {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.406498&lng=78.47724389999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING",
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.7040592&lng=77.10249019999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING",
         {
           mode: "cors",
         }
@@ -91,6 +94,13 @@ const Body = () => {
           >
             Top Rated restaurants
           </button>
+          <label>Username</label>
+          <input
+            className="border border-black p-2"
+            onChange={(e) => {
+              setusername(e.target.value);
+            }}
+          />
         </div>
       </div>
 

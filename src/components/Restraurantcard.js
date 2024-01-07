@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import UserContext from "./UserContext";
 
 const RestaurantCard = ({
   name,
@@ -8,6 +9,8 @@ const RestaurantCard = ({
   DeliveryTime,
   imgUrl,
 }) => {
+  const {LogggedInUser}=useContext(UserContext)
+  //console.log(LogggedInUser);
   return (
     <div className="w-56 p-4 m-4 h-[450px] bg-[#D4ADFC] rounded-md shadow-md shadow-lg transition-transform transform hover:scale-105 hover:border hover:border-solid hover:border-black">
       <img
@@ -21,6 +24,7 @@ const RestaurantCard = ({
         <p className="text-yellow-500 mb-1">Rating: {avgRating}</p>
         <p className="text-gray-700 mb-1">Cost for Two: {costForTwo}</p>
         <p className="text-gray-700">Delivery Time: {DeliveryTime} minutes</p>
+       <p className="text-gray-700">User: {LogggedInUser} </p>
       </div>
     </div>
   );
